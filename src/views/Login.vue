@@ -4,7 +4,6 @@
 
       <h1> Login Into Your Account </h1>
       <b-form style = "width: 50%" align = center>
-        
 
         <b-input-group style = "margin-top: 35px" size = "lg" prepend="@" class="mb-2 mr-sm-2 mb-sm-0">
           <b-input v-model = "username" id="inline-form-input-username" placeholder="Username"></b-input>
@@ -49,19 +48,30 @@ export default {
           password: this.password
         })
         .then((response) => {
-          this.username = "";
-          this.password = "";
+
+          localStorage.setItem('user',this.username);
+          
 
           //alert(response.data.jwtToken)
 
           localStorage.setItem('token',response.data.jwtToken)
+          
+          this.$store.commit('addToken',this.$store.state)
+
+          this.$swal('Welcome '+this.username)
+
+          this.username = "";
+          this.password = "";
+          
           this.$router.push('/')
         })
         .catch(() => {
-          alert("ERORR");
+          alert("INVALID LOGIN");
           this.username = '';
           this.password = '';
         });
+
+        
     }
   },
   computed: {

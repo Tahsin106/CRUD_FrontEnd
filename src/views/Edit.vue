@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div id>
     
     <div class = "container">
-        <div class  = "tempx"> <h1>Create A Story</h1> </div>
+        <div class  = "tempx"> <h1>Edit A Story</h1> </div>
           <b-form @submit.stop.prevent>
             <!-- <label class="sr-only" for="inline-form-input-name">Name</label> -->
 
@@ -32,10 +32,11 @@ import axios from 'axios'
 
 export default {
   
-  name: 'New',
+  name: 'Edit',
   components: {
     
   },
+  props: ['id'],
   data(){
     return {
       stories:[],
@@ -47,13 +48,14 @@ export default {
     submitButton(){
         
         if(this.title.length==0 || this.body.length==0){
-          this.$swal("Invalid Length")
+          alert("Invalid Length")
           return
         }
 
         let token = localStorage.getItem('token')
         
-        axios.post('http://localhost:8080/story',{
+        axios.put('http://localhost:8080/story',{
+          id: this.id,
           title: this.title,
           body: this.body
         },
@@ -66,10 +68,11 @@ export default {
         .then(() => {
           this.title = ''
           this.body = ''
-          this.$swal('Successfully Posted')
+          this.$swal('Successfully Edited')
+          this.$router.push('/')
         })
         .catch(() => {
-          this.$swal('Error')
+          this.$swal("Forbidden")
         });
     }
   },
@@ -79,7 +82,15 @@ export default {
       }
   },
   created(){
-      
+      axios
+        .get(
+          "http://localhost:8080/story/"+this.id
+        )
+        .then(res => {
+            this.title = res.data.title;
+            this.body = res.data.body;
+        })
+        .catch(err => console.log(err));
   }
 }
 </script>

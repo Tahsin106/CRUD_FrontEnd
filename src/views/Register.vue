@@ -5,7 +5,6 @@
         <h1> Register A New User </h1>
       <b-form style = "width: 50%" align = center>
         
-
         <b-input-group style = "margin-top: 35px" size = "lg" prepend="@" class="mb-2 mr-sm-2 mb-sm-0">
           <b-input v-model = "username" id="inline-form-input-username" placeholder="Username"></b-input>
         </b-input-group>
@@ -39,7 +38,7 @@ export default {
   methods: {
     submitRegisterButton() {
       if (this.username.length == 0 || this.password.length == 0) {
-        alert("Invalid Length");
+        this.$swal("Invalid Length");
         return;
       }
 
@@ -51,10 +50,11 @@ export default {
         .then(() => {
           this.username = "";
           this.password = "";
-          this.$router.push('/')
+          this.$swal("Registered Successfully");
+          this.$router.push('/login')
         })
         .catch(() => {
-          alert("ERORR");
+          this.$swal("Username Already Exists");
           this.username = '';
           this.password = '';
         });
