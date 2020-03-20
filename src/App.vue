@@ -78,7 +78,7 @@ export default {
       localStorage.removeItem("token");
       localStorage.removeItem("user");
       this.$store.commit("addToken", this.$store.state);
-      this.$swal('Logged Out')
+      this.$swal('Logged Out', 'You successfully logged out', 'success')
       this.$router.push("/login");
     }
   },

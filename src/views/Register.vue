@@ -37,11 +37,13 @@ export default {
   },
   methods: {
     submitRegisterButton() {
+
       if (this.username.length == 0 || this.password.length == 0) {
-        this.$swal("Invalid Length");
+        this.$swal('Invalid Length', 'Please input at least one character in each field', 'error')
         return;
       }
 
+      
       axios
         .post("http://localhost:8080/register", {
           username: this.username,
@@ -50,11 +52,11 @@ export default {
         .then(() => {
           this.username = "";
           this.password = "";
-          this.$swal("Registered Successfully");
+          this.$swal('Registered', 'You have successfully registered', 'success')
           this.$router.push('/login')
         })
         .catch(() => {
-          this.$swal("Username Already Exists");
+          this.$swal('Invalid Registration', 'Username already exists', 'error')
           this.username = '';
           this.password = '';
         });
@@ -65,7 +67,9 @@ export default {
     //     //return this.userId.length > 4 && this.userId.length < 13
     //   }
   },
-  created() {}
+  created() {
+    
+  }
 };
 </script>
 

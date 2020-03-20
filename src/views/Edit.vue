@@ -46,9 +46,8 @@ export default {
   },
   methods:{
     submitButton(){
-        
         if(this.title.length==0 || this.body.length==0){
-          alert("Invalid Length")
+          this.$swal('Invalid Length', 'Please input at least one character in each field', 'error')
           return
         }
 
@@ -68,7 +67,7 @@ export default {
         .then(() => {
           this.title = ''
           this.body = ''
-          this.$swal('Successfully Edited')
+          this.$swal('Edited', 'You successfully edited this story', 'success')
           this.$router.push('/')
         })
         .catch(() => {

@@ -22,7 +22,7 @@
               <span class="tmp">
                 <input
                   type="submit"
-                  @click="deleteClick(story.id)"
+                  @click="deleteClickCheck(story.id)"
                   v-if="buttonVisible(story.blogUser.username)"
                   value="Delete"
                   class="btn"
@@ -96,6 +96,21 @@ export default {
   },
   computed: {},
   methods: {
+    deleteClickCheck(id){
+
+        this.$swal({
+          title: 'Are you sure?',
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Yes',
+          cancelButtonText: 'No',
+          showLoaderOnConfirm: true
+        }).then((result) => {
+           if(result.value) {
+            this.deleteClick(id)
+          } 
+        })
+    },
     deleteClick(id) {
       let token = localStorage.getItem("token");
 
@@ -106,7 +121,7 @@ export default {
           }
         })
         .then(() => {
-          this.$swal('Succesfully Deleted')
+          this.$swal('Deleted', 'You successfully deleted this story', 'success')
           var pageNumber = this.currentPage - 1;
 
           axios

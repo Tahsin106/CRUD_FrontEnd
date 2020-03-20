@@ -38,7 +38,7 @@ export default {
   methods: {
     loginButton() {
       if (this.username.length == 0 || this.password.length == 0) {
-        alert("Invalid Length");
+        this.$swal('Invalid Length', 'Please input at least one character in each field', 'error')
         return;
       }
 
@@ -58,7 +58,7 @@ export default {
           
           this.$store.commit('addToken',this.$store.state)
 
-          this.$swal('Welcome '+this.username)
+          this.$swal('Welcome '+this.username, '', 'success')
 
           this.username = "";
           this.password = "";
@@ -66,7 +66,7 @@ export default {
           this.$router.push('/')
         })
         .catch(() => {
-          alert("INVALID LOGIN");
+          this.$swal('Invalid Login', 'Wrong password or username', 'error')
           this.username = '';
           this.password = '';
         });

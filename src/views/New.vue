@@ -47,7 +47,7 @@ export default {
     submitButton(){
         
         if(this.title.length==0 || this.body.length==0){
-          this.$swal("Invalid Length")
+          this.$swal('Invalid Length', 'Please input at least one character in each field', 'error')
           return
         }
 
@@ -66,7 +66,7 @@ export default {
         .then(() => {
           this.title = ''
           this.body = ''
-          this.$swal('Successfully Posted')
+          this.$swal('Created', 'You successfully created this story', 'success')
         })
         .catch(() => {
           this.$swal('Error')
