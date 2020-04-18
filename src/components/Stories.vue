@@ -2,8 +2,13 @@
   <div>
     <div v-bind:key="story.id" v-for="story in stories">
       <div align="left" class="card" style="width: 66rem;">
+
+
         <div class="card-body">
-          <h2 class="card-title">{{story.title}}</h2>
+          
+          <img width = "100%" height="80%" :src="imageSource(story.fileName)">
+
+          <h2 style="margin-top:10px" class="card-title">{{story.title}}</h2>
           <p class="card-text">{{story.body}}</p>
           <!-- <a href="#" class="btn">Go somewhere</a> -->
 
@@ -72,7 +77,8 @@ export default {
       currentPage: 1,
       rows: 50,
       perPage: 1,
-      pageSize: 3
+      pageSize: 3,
+      image:''
     };
   },
   created() {
@@ -88,23 +94,27 @@ export default {
           this.pageSize
       )
       .then((res) => {
-        this.stories = res.data.content
+        this.stories = res.data.content;
+        
         this.rows = (res.data.totalElements / this.pageSize) + ((res.data.totalElements % this.pageSize)!=0)
-        console.log(res)
+        //console.log(res)
       })
-      .catch(err => console.log(err));
+
+      
+      
   },
   computed: {},
   methods: {
+    imageSource(fileName){
+      return "http://localhost:8080/downloadFile/"+fileName;
+    },
     deleteClickCheck(id){
-
         this.$swal({
           title: 'Are you sure?',
-          type: 'warning',
           showCancelButton: true,
           confirmButtonText: 'Yes',
           cancelButtonText: 'No',
-          showLoaderOnConfirm: true
+          
         }).then((result) => {
            if(result.value) {
             this.deleteClick(id)
@@ -135,7 +145,7 @@ export default {
               this.stories = res.data.content
               this.rows = (res.data.totalElements / this.pageSize) + ((res.data.totalElements % this.pageSize)!=0)
               })
-            .catch(err => console.log(err));
+            
         })
         .catch(() => {
           this.$swal('Forbidden')
@@ -155,7 +165,7 @@ export default {
             this.pageSize
         )
         .then(res => (this.stories = res.data.content))
-        .catch(err => console.log(err));
+        
     },
     buttonVisible(username) {
       this.$store.commit("addToken", this.$store.state);

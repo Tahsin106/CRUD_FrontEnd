@@ -6,11 +6,11 @@
       <b-form style = "width: 50%" align = center>
 
         <b-input-group style = "margin-top: 35px" size = "lg" prepend="@" class="mb-2 mr-sm-2 mb-sm-0">
-          <b-input v-model = "username" id="inline-form-input-username" placeholder="Username"></b-input>
+          <b-input v-model = "username" placeholder="Username"></b-input>
         </b-input-group>
 
         <b-input-group style = "margin-top: 15px" size = "lg" prepend="@" class="mb-2 mr-sm-2 mb-sm-0">
-          <b-input v-model = "password" type = "password" id="inline-form-input-username" placeholder="Password"></b-input>
+          <b-input v-model = "password" type = "password" placeholder="Password"></b-input>
         </b-input-group>
 
         <!-- <b-form-checkbox class="mb-2 mr-sm-2 mb-sm-0">Remember me</b-form-checkbox> -->
@@ -50,8 +50,7 @@ export default {
         .then((response) => {
 
           localStorage.setItem('user',this.username);
-          
-
+        
           //alert(response.data.jwtToken)
 
           localStorage.setItem('token',response.data.jwtToken)
