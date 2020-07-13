@@ -7,6 +7,8 @@
             Option1
           </option>
         </select>
+
+        <div> Hello World </div>
         <div class  = "tempx"> <h1>Edit A Story</h1> </div>
           <b-form @submit.stop.prevent>
             <!-- <label class="sr-only" for="inline-form-input-name">Name</label> -->
